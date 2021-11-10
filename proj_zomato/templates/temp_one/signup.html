@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{%load static%}
+{%block head_tags%}
+<title>Beta Eats | Sign Up</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{%block css%}
+  <link rel="stylesheet" href="{% static 'input.css' %}">
+{%endblock%}
+{%endblock%}
+{%block content%}
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h1 style="text-align: center;">Sign Up</h1>
+        </div>
+      <hr>
+      <div class="card-body" style="text-align: center; display: flex">
+        <form action="{% url 'sign-up' %}" method="POST" style="border:1px solid #ccc; margin: auto;">
+        {% csrf_token %}
+          <br>
+
+          <label style="text-align: left;" for="name"><b>Name</b></label><br>
+          <input style="text-align: center; width: 70%;" type="text" placeholder="Enter Name" name="name" required><br><br>
+      <label style="text-align: left;" for="email"><b>Email</b></label><br>
+      <input style="text-align: center; width: 70%;" type="text" placeholder="Enter Email" name="email" required><br><br>
+
+      <label style="text-align: left;" for="psw"><b>Password</b></label><br>
+      <input style="text-align: center; width: 70%;" type="password" placeholder="Enter Password" name="psw" required><br><br>
+
+      <label style="text-align: left;" for="psw1"><b>Repeat Password</b></label><br>
+      <input style="text-align: center; width: 70%;" type="password" placeholder="Enter Password" name="psw" required><br><br>
+      
+      <label for="usr_typ">Type of user:</label>
+
+<select id="usr_typ">
+  <option value="Restaurant">Restaurant</option>
+  <option value="Customer">Customer</option>
+</select>
+      <!-- <label for="psw-repeat"><b>Repeat Password</b></label>
+      <input type="password" placeholder="Repeat Password" name="psw-repeat" required> -->
+      
+      
+      <!-- <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p> -->
+  
+      <div class="clearfix" style="display: flex;
+      justify-content: center;
+      align-items: center;">
+        <!-- <button type="button" class="cancelbtn">Cancel</button> -->
+        <button type="submit" class="signupbtn">Sign Up</button>
+      </div>
+    </form>
+    </div>
+    </div>
+    </div>
+  
+{%endblock%}

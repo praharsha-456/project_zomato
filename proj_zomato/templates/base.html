@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% block head_tags %}
+
+        {%endblock%}
+        {%block css %}
+
+        {%endblock%}
+    </head>
+    <body>
+        <nav>
+            <a href="{% url 'home' %}">BETA Eats</a>
+        </nav>
+        {%block content%}
+
+        {%endblock%}
+    </body>
+</html>
