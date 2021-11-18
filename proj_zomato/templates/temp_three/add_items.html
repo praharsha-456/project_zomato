@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{%load static%}
+{%block head_tags%}
+<title>Welcome {{name}} | Beta Eats</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{%block css%}
+  <link rel="stylesheet" href="{% static 'input.css' %}">
+  <script src="{% static 'input.js' %}"></script> 
+  <script src="{% static 'ajax.js' %}"></script>
+{%endblock%}
+{%endblock%}
+{%block content%}
+<div class="container" id="container">
+	<table style="width: 100%; ">
+		<tbody>
+			<tr>
+				<td style="text-align: left;"><h2>Welcome {{rest_name}}</h2></td>
+				<td style="text-align: center;"><h3><a href="{% url 'add-items' name1=rest_name.split|join:'_' %}">Add items</a></h3></td>
+			</tr>
+		</tbody>
+	</table>
+    <form action="{% url 'add-items' name1=rest_name.split|join:'_'  %}" method="POST">
+        {% csrf_token %}
+		{% if message %}
+		<p>{{message}}</p>
+		{% endif %}
+	<table style="width: 100%; ">
+		<tbody>
+			<tr>
+				<td style="text-align: center;">Item Name</td>
+				<td style="text-align: center;">
+                    <input type="text" name="item_name" placeholder="Item Name" required />
+                </td>
+			</tr>
+            <tr>
+				<td style="text-align: center;">Item Price</td>
+				<td style="text-align: center;">
+                    <input type="number" name="item_price" placeholder="Item Price" required />
+                </td>
+			</tr>
+            <tr>
+                <td></td>
+                <td style="text-align: center;">
+                    <button>Add Item</button>
+                </td>
+            </tr>
+		</tbody>
+	</table>
+    </form>
+		<!-- {% for i,j,k in ordered_zip %}
+		<li>{{i}} {{j}} {{k}}</li>
+		{% endfor %} -->
+</div>
+
+<footer>
+	<p>
+		Created with <i class="fa fa-heart"></i> by
+		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+		- Read how I created this and how you can join the challenge
+		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+	</p>
+</footer>
+
+{%endblock%}

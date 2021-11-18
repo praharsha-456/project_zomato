@@ -5,52 +5,70 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {%block css%}
   <link rel="stylesheet" href="{% static 'input.css' %}">
+  <script src="{% static 'input.js' %}"></script>
 {%endblock%}
 {%endblock%}
 {%block content%}
-    <div class="container">
-      <div class="card">
-        <div class="card-header">
-          <h1 style="text-align: center;">Sign Up</h1>
-        </div>
-      <hr>
-      <div class="card-body" style="text-align: center; display: flex">
-        <form action="{% url 'sign-up' %}" method="POST" style="border:1px solid #ccc; margin: auto;">
-        {% csrf_token %}
-          <br>
+<div class="container" id="container">
+	<div class="form-container sign-in-container">
+		<form action="{% url 'sign-up' %}" method="POST">
+      	{% csrf_token %}
+			<h1>Sign Up</h1><br>
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							User Type:
+						</td>
+						<td>
+							<input type="radio" onclick="swapConfig(this)" id="customer" name="usr_typ" value="Customer" checked="checked">
+							<label for="customer">Customer</label>
+						</td>
+						<td>
+							<input type="radio" onclick="swapConfig(this)" id="restaurant" name="usr_typ" value="Restaurant">
+							<label for="restaurant">Restaurant</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<br>
 
-          <label style="text-align: left;" for="name"><b>Name</b></label><br>
-          <input style="text-align: center; width: 70%;" type="text" placeholder="Enter Name" name="name" required><br><br>
-      <label style="text-align: left;" for="email"><b>Email</b></label><br>
-      <input style="text-align: center; width: 70%;" type="text" placeholder="Enter Email" name="email" required><br><br>
+			<div id="customerForm">
+				<input type="name" name="name" placeholder="User Name"  />
+				<input type="email" name="email" placeholder="Email"  />
+				<input type="password" name="psw" placeholder="Password"  />
+			</div>
 
-      <label style="text-align: left;" for="psw"><b>Password</b></label><br>
-      <input style="text-align: center; width: 70%;" type="password" placeholder="Enter Password" name="psw" required><br><br>
+			<div id="restaurantForm" style="display: none;">
+				<input type="name" name="name1" placeholder="Restaurant Name" />
+				<input type="email" name="email1" placeholder="Email"  />
+				<input type="password" name="psw1" placeholder="Password"  />
+				<input type="text" name="address" placeholder="Address"  />
+				<!-- <button formaction="{% url 'sign-up' %}" formmethod="POST">Sign Up</button> -->
+			</div>
+			<button type="submit">Sign Up</button>
 
-      <label style="text-align: left;" for="psw1"><b>Repeat Password</b></label><br>
-      <input style="text-align: center; width: 70%;" type="password" placeholder="Enter Password" name="psw" required><br><br>
-      
-      <label for="usr_typ">Type of user:</label>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-right">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<a href="{% url 'home' %}" class="ghost">Sign In</a>
+			</div>
+		</div>
+	</div>
+</div>
 
-<select id="usr_typ">
-  <option value="Restaurant">Restaurant</option>
-  <option value="Customer">Customer</option>
-</select>
-      <!-- <label for="psw-repeat"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" name="psw-repeat" required> -->
-      
-      
-      <!-- <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p> -->
-  
-      <div class="clearfix" style="display: flex;
-      justify-content: center;
-      align-items: center;">
-        <!-- <button type="button" class="cancelbtn">Cancel</button> -->
-        <button type="submit" class="signupbtn">Sign Up</button>
-      </div>
-    </form>
-    </div>
-    </div>
-    </div>
+<footer>
+	<p>
+		Created with <i class="fa fa-heart"></i> by
+		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+		- Read how I created this and how you can join the challenge
+		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+	</p>
+</footer>
   
 {%endblock%}

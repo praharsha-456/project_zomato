@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{%load static%}
+{%block head_tags%}
+<title>Welcome {{name}} | Beta Eats</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{%block css%}
+  <link rel="stylesheet" href="{% static 'input2.css' %}">
+  <script src="{% static 'input.js' %}"></script> 
+  <script type="text/javascript" src="{% static 'ajax.js' %}"></script>
+  <script>
+    function savedata(){
+    return false; //<---- move it here
+    }
+  
+  </script>
+  <script type="text/javascript">
+    function submitfunction() {
+
+      $.ajax({
+      type: "POST",
+      url: "{% url 'details-api' %}",
+      data: {
+        'user': $('#name').val(), // from form
+        'restaurant': $('#restaurant').val(),
+        'dishes': $('#dish').val()
+      },
+      success: function () {
+        $('#message').html("Order Placed")
+      }
+    });
+  alert("The Order has been placed");
+}
+  </script>
+{%endblock%}
+{%endblock%}
+{%block content%}
+<div class="container" id="container">
+  <h1>Welcome {{name}}</h1>
+  <div class="small-container" style="text-align: center;">
+    <h2>Available dishes in {{restaurant}}</h2>
+  </div>
+  <div class="new">
+    <form action="{% url 'order-placed' %}" onsubmit="submitfunction()" id="test" method="POST">
+      {% csrf_token %}
+            
+            <div class="form-group">
+              <table style="width: 100%;">
+                <tbody>
+                  {% for x,y in dish_n_price_list %}
+                  <tr>
+                    <td><input type="checkbox" id="dish{{x}}" name="dish" value="{{x}}"><label for="dish{{x}}">{{x}}</label></td>
+                    <td style="align: right;">Rs. {{y}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            
+            <br><br>
+            <input type="hidden" name="name" id="name" value="{{name}}">
+            <input type="hidden" name="restaurant" id="restaurant" value="{{restaurant}}">
+            <input type="submit" id="place-order" onclick="savedata()" value="Place the Order">
+    </form>
+    <p id="message"></p>
+  </div>
+  <div class="small-container">
+    <h3>{{restaurant}} located at {{address}}</h3>
+  </div>
+</div>
+
+<footer>
+	<p>
+		Created with <i class="fa fa-heart"></i> by
+		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+		- Read how I created this and how you can join the challenge
+		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+	</p>
+</footer>
+  
+{%endblock%}

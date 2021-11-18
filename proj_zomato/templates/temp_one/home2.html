@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{%load static%}
+{%block head_tags%}
+<title>Welcome {{name}} | Beta Eats</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{%block css%}
+  <link rel="stylesheet" href="{% static 'input.css' %}">
+  <script src="{% static 'input.js' %}"></script> 
+{%endblock%}
+{%endblock%}
+{%block content%}
+<div class="container" id="container">
+
+	<table style="width: 100%;">
+		<tbody>
+			<tr>
+				<td style="text-align: center;"><h2>Welcome {{name}}</h2></td>
+				<td style="text-align: center;"><h3><a href="{% url 'orders' name1=name %}">Your Orders</a></h3></td>
+			</tr>
+		</tbody>
+	</table>
+    <div>
+        <form action="{% url 'restaurant' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="name" value="{{name}}">
+            <table style="width: 100%; padding-top: 80px;">
+              <tbody>
+                <tr>
+                  <td><label for="restaurant">Select the Restaurant:</label></td>
+                  <td>
+                    <select name="restaurant" id="restaurant">
+                      {% for i in rest_list %}
+                      <option value="{{i.rest_name}}">{{i.rest_name}}</option>
+                      {% endfor %}
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <span style="padding-left: 120px;"><input style="width: fit-content; align: right;" type="submit" value="Submit"></span>
+          </form>
+    </div>
+</div>
+
+<footer>
+	<p>
+		Created with <i class="fa fa-heart"></i> by
+		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+		- Read how I created this and how you can join the challenge
+		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+	</p>
+</footer>
+  
+{%endblock%}

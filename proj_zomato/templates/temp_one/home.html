@@ -5,39 +5,71 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {%block css%}
   <link rel="stylesheet" href="{% static 'input.css' %}">
+  <script src="{% static 'input.js' %}"></script> 
 {%endblock%}
 {%endblock%}
 {%block content%}
-    <div class="container">
-      <div class="card">
-        <div class="card-header">
-          <h1 style="text-align: center;">Log In</h1>
-        </div>
-      <hr>
-      <div class="card-body" style="text-align: center; display: flex">
-        <form action="{% url 'home'%}" style="border:1px solid #ccc; margin: auto;">
-          <br>
-      <label style="text-align: left;" for="email"><b>Email</b></label><br>
-      <input style="text-align: center; width: 70%;" type="text" placeholder="Enter Email" name="email" required><br><br>
+<div class="container" id="container">
+	<div class="form-container sign-in-container">
+		<form action="{% url 'home' %}" method="POST">
+      {% csrf_token %}
+	  {% if message_zip %}
+	  {% for i,j in message_zip %}
+	  <div class="{{i}}-msg">
+		<i class="fa fa-check"></i>
+		{{j}}
+	  </div>
+	  {% endfor %}
+	  {% endif %}
+			<h1>Sign in</h1><br>
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							User Type:
+						</td>
+						<td>
+							<input type="radio" onclick="swapConfig(this)" id="customer" name="usr_typ" value="Customer" checked="checked">
+							<label for="customer">Customer</label>
+						</td>
+						<td>
+							<input type="radio" onclick="swapConfig(this)" id="restaurant" name="usr_typ" value="Restaurant">
+							<label for="restaurant">Restaurant</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="customerForm">
+				<input type="email" name="email" placeholder="Customer Email"  />
+				<input type="password" name="psw" placeholder="Password"  />
+			</div>
+			<div id="restaurantForm" style="display: none;">
+				
+				<input type="email" name="email1" placeholder="Restaurant Email"  />
+				<input type="password" name="psw1" placeholder="Password"  />
+				
+			</div>
+			<button>Sign In</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-right">
+				<h1>Hello!</h1>
+				<p>Please sign up if you haven't registered yet</p>
+				<a href="{% url 'sign-up' %}" class="ghost">Sign Up</a>
+			</div>
+		</div>
+	</div>
+</div>
 
-      <label style="text-align: left;" for="psw"><b>Password</b></label><br>
-      <input style="text-align: center; width: 70%;" type="password" placeholder="Enter Password" name="psw" required>
-  
-      <!-- <label for="psw-repeat"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" name="psw-repeat" required> -->
-      
-      
-      <!-- <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p> -->
-  
-      <div class="clearfix" style="display: flex;
-      justify-content: center;
-      align-items: center;">
-        <!-- <button type="button" class="cancelbtn">Cancel</button> -->
-        <button type="submit" class="signinbtn">Log In</button>
-      </div>
-    </form>
-    </div>
-    </div>
-    </div>
+<footer>
+	<p>
+		Created with <i class="fa fa-heart"></i> by
+		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+		- Read how I created this and how you can join the challenge
+		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+	</p>
+</footer>
   
 {%endblock%}

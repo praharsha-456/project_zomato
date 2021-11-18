@@ -11,7 +11,7 @@ class UserModel(models.Model):
 class DishModel(models.Model):
     dish_name=models.CharField(max_length=30)
     dish_price=models.IntegerField()
-    rest_available=models.CharField(max_length=60)
+    rest_available=models.CharField(max_length=500)
 
 class RestaurantModel(models.Model):
     rest_name=models.CharField(max_length=50)
@@ -22,4 +22,4 @@ class PlaceOrderModel(models.Model):
     rest_placed=models.CharField(max_length=50)
     dish_placed=models.CharField(max_length=30)
     total_price=models.IntegerField()
-    date=models.DateTimeField()
+    date=models.DateTimeField(auto_now_add=True, blank=True)
